@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'models/todo.dart';
 
 void main() {
   runApp(MyApp());
@@ -78,8 +79,9 @@ class TodoListScreenState extends State<TodoListScreen> {
   // Function to toggle task completion status
   void _toggleTodo(int id) {
     setState(() {
-      _todos.firstWhere((todo) => todo.id == id).isCompleted =
-          !_todos.firstWhere((todo) => todo.id == id).isCompleted;
+      final todo = _todos.firstWhere((todo) => todo.id == id);
+      todo.isCompleted = !todo.isCompleted;
+      _sortTodos(); // Sort after toggling
     });
   }
 
@@ -146,6 +148,21 @@ class TodoListScreenState extends State<TodoListScreen> {
     });
   }
 
+  // Function to sort todos
+  void _sortTodos() {
+    _todos.sort((a, b) {
+      // Sort by completion status first (uncompleted before completed)
+      if (!a.isCompleted && b.isCompleted) {
+        return -1;
+      }
+      if (a.isCompleted && !b.isCompleted) {
+        return 1;
+      }
+      // If completion status is the same, sort by ID (or any other criteria)
+      return a.id.compareTo(b.id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,18 +195,7 @@ class TodoListScreenState extends State<TodoListScreen> {
   }
 }
 
-// Todo data model
-class Todo {
-  int id;
-  String title;
-  bool isCompleted;
 
-  Todo({
-    required this.id,
-    required this.title,
-    this.isCompleted = false,
-  });
-}
 
 // Widget for displaying a single todo item
 class TodoItemWidget extends StatelessWidget {
