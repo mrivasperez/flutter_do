@@ -32,11 +32,20 @@ class TodoItemWidgetState extends State<TodoItemWidget> {
         leading: Checkbox(
           value: widget.todo.isCompleted,
           onChanged: (value) async {
-            setState(() {
-              _opacity = 0.5;
-            });
-            await Future.delayed(const Duration(milliseconds: 300));
-            widget.onToggle(widget.todo.id);
+            if (value == true) {
+              // Fade out when checked
+              setState(() {
+                _opacity = 0.5;
+              });
+              await Future.delayed(const Duration(milliseconds: 300));
+            }
+            widget.onToggle(widget.todo.id); // Toggle the state
+            if (value == false) {
+              // Fade in when unchecked
+              setState(() {
+                _opacity = 1.0;
+              });
+            }
           },
         ),
         title: Text(
