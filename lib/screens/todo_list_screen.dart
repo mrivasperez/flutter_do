@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../main.dart';
 import '../models/todo.dart';
+import '../widgets/todo_item_widget.dart';
 
 class TodoListScreen extends StatefulWidget {
   const TodoListScreen({super.key});
