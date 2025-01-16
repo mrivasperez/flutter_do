@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_do/screens/todo_list_screen.dart';
 import 'models/todo.dart';
 
 void main() {
@@ -16,13 +17,6 @@ class MyApp extends StatelessWidget {
       home: TodoListScreen(),
     );
   }
-}
-
-class TodoListScreen extends StatefulWidget {
-  const TodoListScreen({super.key});
-
-  @override
-  TodoListScreenState createState() => TodoListScreenState();
 }
 
 class TodoListScreenState extends State<TodoListScreen> {
@@ -194,8 +188,6 @@ class TodoListScreenState extends State<TodoListScreen> {
     );
   }
 }
-
-
 
 // Widget for displaying a single todo item
 class TodoItemWidget extends StatelessWidget {
